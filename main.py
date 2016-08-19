@@ -1,4 +1,6 @@
 from flask import Flask
+import menu
+
 app = Flask(__name__)
 
 @app.route("/")
