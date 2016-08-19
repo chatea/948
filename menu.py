@@ -8,11 +8,13 @@ _TEST_MENU_ID = u'-1'
 _KEY_MENU_ID = u'menu_id'
 _KEY_MENU_NAME = u'name'
 _KEY_MENU_TITLE = u'title'
+_KEY_MENU_IMAGE_URL = u'image_url'
 _KEY_MENU_PATH = u'path_to_file'
 
 KEY_ITEM_ID = u'id'
 KEY_ITEM_ITEMS = u'items'
 KEY_ITEM_NAME = u'name'
+KEY_ITEM_IMAGE_URL = u"image_url"
 KEY_ITEM_PRICE = u'price'
 KEY_ITEM_CATEGORY = u'category'
 
