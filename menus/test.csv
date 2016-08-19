@@ -1,3 +1,3 @@
-# id,name,price,category
-0,海帶,30,海鮮
-1,王子麵,20,
+# id,items,name,price,category
+0,[0],海帶,30,海鮮
+1,[1],王子麵,20,

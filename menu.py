@@ -11,6 +11,7 @@ _KEY_MENU_TITLE = u'title'
 _KEY_MENU_PATH = u'path_to_file'
 
 KEY_ITEM_ID = u'id'
+KEY_ITEM_ITEMS = u'items'
 KEY_ITEM_NAME = u'name'
 KEY_ITEM_PRICE = u'price'
 KEY_ITEM_CATEGORY = u'category'
@@ -32,7 +33,12 @@ def load_csv(filename):
             item_id = unicode(row[0], 'utf-8')
             items = {}
             for i in xrange(0, len(row)):
-                items[headers[i]] = unicode(row[i], 'utf-8')
+                if headers[i] == KEY_ITEM_ITEMS:
+                    dumped_items = json.loads(row[i])
+                    print dumped_items
+                    items[headers[i]] = [str(i).decode('utf-8') for i in dumped_items]
+                else:
+                    items[headers[i]] = unicode(row[i], 'utf-8')
             ret[item_id] = items
         return ret
 
@@ -70,11 +76,13 @@ def test():
     test_menu = get_menu(_TEST_MENU_ID)
     assert test_menu is not None, "Cannot find test menu"
     assert test_menu[u'0'][KEY_ITEM_ID] == u'0', "id is not correct for item id 0"
+    assert test_menu[u'0'][KEY_ITEM_ITEMS][0] == u'0', "items are not correct for item id 0"
     assert test_menu[u'0'][KEY_ITEM_NAME] == u'海帶', "name is not correct for item id 0"
     assert test_menu[u'0'][KEY_ITEM_PRICE] == u'30', "price is not correct for item id 0"
     assert test_menu[u'0'][KEY_ITEM_CATEGORY] == u'海鮮', "cateogry is not correct for item id 0"
 
     assert test_menu[u'1'][KEY_ITEM_ID] == u'1', "id is not correct for item id 1"
+    assert test_menu[u'1'][KEY_ITEM_ITEMS][0] == u'1', "items are not correct for item id 1"
     assert test_menu[u'1'][KEY_ITEM_NAME] == u'王子麵', "name is not correct for item id 1"
     assert test_menu[u'1'][KEY_ITEM_PRICE] == u'20', "price is not correct for item id 1"
     assert test_menu[u'1'][KEY_ITEM_CATEGORY] == u'', "cateogry is not correct for item id 1"
