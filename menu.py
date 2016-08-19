@@ -25,7 +25,7 @@ def load_csv(filename):
     """
     with file(filename, 'rb') as csvfile:
         ret = {}
-        reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         headers = reader.next()
         headers[0] = headers[0][1:].strip()
         headers = [unicode(w, 'utf-8') for w in headers]
@@ -34,9 +34,9 @@ def load_csv(filename):
             items = {}
             for i in xrange(0, len(row)):
                 if headers[i] == KEY_ITEM_ITEMS:
+                    key = headers[i]
                     dumped_items = json.loads(row[i])
-                    print dumped_items
-                    items[headers[i]] = [str(i).decode('utf-8') for i in dumped_items]
+                    items[key] = [str(i).decode('utf-8') for i in dumped_items]
                 else:
                     items[headers[i]] = unicode(row[i], 'utf-8')
             ret[item_id] = items
@@ -71,21 +71,26 @@ def get_menu(menu_id):
 def test():
     menu_list = get_menu_list()
     assert menu_list is not None, "Cannot find menu list!"
-    print menu_list
 
     test_menu = get_menu(_TEST_MENU_ID)
     assert test_menu is not None, "Cannot find test menu"
     assert test_menu[u'0'][KEY_ITEM_ID] == u'0', "id is not correct for item id 0"
-    assert test_menu[u'0'][KEY_ITEM_ITEMS][0] == u'0', "items are not correct for item id 0"
+    assert test_menu[u'0'][KEY_ITEM_ITEMS] == [u'0'], "items are not correct for item id 0"
     assert test_menu[u'0'][KEY_ITEM_NAME] == u'海帶', "name is not correct for item id 0"
     assert test_menu[u'0'][KEY_ITEM_PRICE] == u'30', "price is not correct for item id 0"
     assert test_menu[u'0'][KEY_ITEM_CATEGORY] == u'海鮮', "cateogry is not correct for item id 0"
 
     assert test_menu[u'1'][KEY_ITEM_ID] == u'1', "id is not correct for item id 1"
-    assert test_menu[u'1'][KEY_ITEM_ITEMS][0] == u'1', "items are not correct for item id 1"
+    assert test_menu[u'1'][KEY_ITEM_ITEMS] == [u'1'], "items are not correct for item id 1"
     assert test_menu[u'1'][KEY_ITEM_NAME] == u'王子麵', "name is not correct for item id 1"
     assert test_menu[u'1'][KEY_ITEM_PRICE] == u'20', "price is not correct for item id 1"
     assert test_menu[u'1'][KEY_ITEM_CATEGORY] == u'', "cateogry is not correct for item id 1"
+
+    assert test_menu[u'2'][KEY_ITEM_ID] == u'2', "id is not correct for item id 2"
+    assert test_menu[u'2'][KEY_ITEM_ITEMS] == [u'0',u'1'], "items are not correct for item id 2"
+    assert test_menu[u'2'][KEY_ITEM_NAME] == u'海帶王子麵套餐', "name is not correct for item id 2"
+    assert test_menu[u'2'][KEY_ITEM_PRICE] == u'40', "price is not correct for item id 2"
+    assert test_menu[u'2'][KEY_ITEM_CATEGORY] == u'', "cateogry is not correct for item id 2"
 
     print "Test pass"
 
