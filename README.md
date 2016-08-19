@@ -1,17 +1,19 @@
 # Setup
 
 ```shell
-$ pip install Flask
+$ pip install flask
+$ pip install flask-cli
 ```
 
 # Run
 
 ```shell
-$ python main.py
+$ cd path/to/project/root
+$ FLASK_APP=./main.py flask run
 ```
 
 Run in debug mode
 ```shell
-$ export FLASK_DEBUG=1
-$ python main.py
+$ cd path/to/project/root
+$ FLASK_APP=./main.py FLASK_DEBUG=1 flask run
 ```
