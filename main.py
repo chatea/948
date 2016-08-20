@@ -9,7 +9,7 @@ app.debug = True
 
 MENU_NAME_ID_MAP = {
     u'test': u'-1',
-    u'mcdonald': u'0',
+    u'mcdonalds': u'0',
 }
 
 @app.route("/")
