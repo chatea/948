@@ -1,6 +1,25 @@
 import menu
 
-class OrderMethod(object):
+_KEY_COUNTER = u"count"
+
+class BestOrderWay(object):
+    def __init__(self, menu_id, order_method):
+        menus = menu.get_menu(menu_id)
+        ordered_items = {}
+        for order_id in order_method.orders:
+            if order_id in ordered_items:
+                ordered_items[order_id] += 1
+            else:
+                ordered_items[order_id] = 1
+        items = []
+        for item_key in ordered_items:
+            item = dict((k,v) for k,v in menus[item_key].items())
+            item[_KEY_COUNTER] = ordered_items[item_key]
+            items.append(item)
+        self.items = items
+        self.prices = order_method.prices
+
+class _OrderMethod(object):
     def __init__(self, orders, prices):
         self.orders = orders
         self.prices = prices
@@ -33,7 +52,7 @@ class _Calculator(object):
 
     def perform_calculate(self, remains, ordered, ordered_prices):
         if not remains:
-            return OrderMethod(ordered, ordered_prices)
+            return _OrderMethod(ordered, ordered_prices)
 
         if ordered_prices in self.cached:
             for r, m in self.cached[ordered_prices]:
@@ -80,6 +99,11 @@ def calculate(menu_id, orders):
             orders.extend(items)
     calculator = _Calculator(full_menu)
     return calculator.perform_calculate(flatten_orders, [], 0)
+
+
+def get_best_order_way(menu_id, orders):
+    best_order = calculate(menu_id, orders)
+    return BestOrderWay(menu_id, best_order)
 
 
 def test():

@@ -39,9 +39,9 @@ def get_prices():
     orders = json.loads(request.args.get(u'orders'))
     orders = [unicode(str(order), "utf-8") for order in orders]
     print menu_id, orders
-    order_method = optimizer.calculate(menu_id, orders)
+    order_method = optimizer.get_best_order_way(menu_id, orders)
     result = {
-        u"items":order_method.orders,
+        u"items":order_method.items,
         u"prices":order_method.prices
     }
     return json.dumps(result)
