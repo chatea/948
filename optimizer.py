@@ -9,15 +9,36 @@ class OrderMethod(object):
         ret = "prices: %d, buy methods is %s" % (self.prices, str(self.orders))
         return ret
 
+def is_same_list(left, right):
+    hashed = {}
+    for i in left:
+        if i in hashed:
+            hashed[i] += 1
+        else:
+            hashed[i] = 1
+    for i in right:
+        if i not in hashed:
+            return False
+        else:
+            hashed[i] -= 1
+            if hashed[i] == 0:
+                del hashed[i]
+    return False if hashed else True
 
 class _Calculator(object):
 
     def __init__(self, menu):
         self.menu = menu
+        self.cached = {}
 
     def perform_calculate(self, remains, ordered, ordered_prices):
         if not remains:
             return OrderMethod(ordered, ordered_prices)
+
+        if ordered_prices in self.cached:
+            for r, m in self.cached[ordered_prices]:
+                if is_same_list(remains, r):
+                    return m
 
         min_method = None
         for k, item in self.menu.iteritems():
@@ -38,6 +59,10 @@ class _Calculator(object):
                 if not min_method or new_order_method.prices < min_method.prices:
                     min_method = new_order_method
 
+        if ordered_prices not in self.cached:
+            self.cached[ordered_prices] = [(remains[:],min_method)]
+        else:
+            self.cached[ordered_prices].append((remains[:],min_method))
         return min_method
 
 
@@ -75,6 +100,8 @@ def test():
 
     print "test pass"
 
+    result = calculate(u'0', [u'11',u'11',u'11',u'11',u'13',u'30',u'30',u'30',u'30',u'76',u'76',u'76',u'76'])
+    print result
 
 if __name__ == "__main__":
     test()

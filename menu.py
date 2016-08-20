@@ -93,6 +93,11 @@ def test():
     assert test_menu[u'2'][KEY_ITEM_PRICE] == u'40', "price is not correct for item id 2"
     assert test_menu[u'2'][KEY_ITEM_CATEGORY] == u'', "cateogry is not correct for item id 2"
 
+
+    mc_menu = get_menu(u'0')
+    assert mc_menu is not None, "Cannot find mcdonald's menu"
+    print "Can get Mcdonald's menu."
+
     print "Test pass"
 
 if __name__ == "__main__":
