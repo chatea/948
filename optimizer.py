@@ -68,7 +68,7 @@ def test():
     assert result.prices == 70, "The price is wrong"
     print "Buy succeed: ", result
 
-    result = calculate(u'-1', [u'0',u'1',u'12',u'7',u'5',u'5',u'8',u'12'])
+    result = calculate(u'-1', [u'0',u'1',u'12',u'7',u'5',u'5',u'8'])
     assert result.orders == [u'13'], "The order of calculate is wrong: " + str(result.orders)
     assert result.prices == 100, "The price is wrong"
     print "Buy succeed: ", result

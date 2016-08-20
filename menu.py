@@ -12,10 +12,10 @@ _KEY_MENU_IMAGE_URL = u'image_url'
 _KEY_MENU_PATH = u'path_to_file'
 
 KEY_ITEM_ID = u'id'
-KEY_ITEM_ITEMS = u'items'
 KEY_ITEM_NAME = u'name'
+KEY_ITEM_ITEMS = u'items'
 KEY_ITEM_IMAGE_URL = u"image_url"
-KEY_ITEM_PRICE = u'price'
+KEY_ITEM_PRICE = u'prices'
 KEY_ITEM_CATEGORY = u'category'
 
 def load_csv(filename):
@@ -29,7 +29,6 @@ def load_csv(filename):
         ret = {}
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         headers = reader.next()
-        headers[0] = headers[0][1:].strip()
         headers = [unicode(w, 'utf-8') for w in headers]
         for row in reader:
             item_id = unicode(row[0], 'utf-8')
