@@ -7,6 +7,14 @@ $ pip install flask-cli
 
 # Run
 
+## Run as GAE on local side (Need gcloud SDK)
+
+```shell
+$ dev_appserver.py ./
+```
+
+## Run as common flask app
+
 ```shell
 $ cd path/to/project/root
 $ FLASK_APP=./main.py flask run
@@ -31,4 +39,10 @@ Run server first, then try below APIs:
 * `$HOST/menus`
 * `$HOST/menus/mcdonalds`
 * `$HOST/getPrices?menu_id=-1&orders=[0,0,1]`
+
+# Deply
+
+```shell
+$ gcloud app deploy app.yaml
+```
 
