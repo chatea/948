@@ -127,5 +127,8 @@ def test():
     result = calculate(u'0', [u'11',u'11',u'11',u'11',u'13',u'30',u'30',u'30',u'30',u'76',u'76',u'76',u'76'])
     print result
 
+    result = calculate(u'0', [u'13',u'13',u'13'])
+    print result
+
 if __name__ == "__main__":
     test()
