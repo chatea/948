@@ -20,7 +20,10 @@ def home():
 @app.route("/menus")
 def menus():
     menulist = menu.get_menu_list()
-    return json.dumps(menulist)
+    menus = []
+    for k, v in menulist.items():
+        menus.append(v)
+    return json.dumps(menus)
 
 
 @app.route("/menus/<path:menu_name>")
@@ -30,7 +33,10 @@ def get_menu(menu_name):
 
     menu_id = MENU_NAME_ID_MAP[menu_name]
     target_menu = menu.get_menu(menu_id)
-    return json.dumps(target_menu)
+    menu_items = []
+    for k, v in target_menu.items():
+        menu_items.append(v)
+    return json.dumps(menu_items)
 
 
 @app.route("/getPrices",  methods=['GET'])
@@ -61,4 +67,7 @@ if app.debug:
     @app.route("/test")
     def test():
         target_menu = menu.get_menu(u'-1')
-        return json.dumps(target_menu)
+        menus = []
+        for k, v in target_menu.items():
+            menus.append(v)
+        return json.dumps(menus)
